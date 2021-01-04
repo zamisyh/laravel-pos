@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Models\User;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,24 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('save',  function() {
+    return User::create([
+        'email' => 'zam@gmail.com',
+        'name' => 'zam',
+        'password' => bcrypt('secret')
+    ]);
+});
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::name('admin.')->group(function() {
+        Route::group(['prefix' => 'auth'], function () {
+            Route::get('login', [AuthController::class, 'logView'])->name('auth.logView');
+            Route::get('register', [AuthController::class, 'regView'])->name('auth.regView');
+            Route::post('process-login', [AuthController::class, 'actionLogin'])->name('auth.action');
+            Route::post('process-signup', [AuthController::class, 'actionSignup'])->name('auth.action.signup');
+        });
+    });
+});
+
