@@ -16,10 +16,10 @@ class AuthController extends Controller
         if(session('error_login')){
             toast(session('error_login'),'error');
 
-        }else{
+        }else if(session('success_login')){
             toast(session('success_login'), 'success');
-
-
+        }else{
+            toast(session('success_logout'), 'success');
         }
         return view('auth.login');
 
@@ -52,5 +52,11 @@ class AuthController extends Controller
         ]);
 
         return 'Success';
+    }
+
+    public function logout(Request $req)
+    {
+        Auth::logout();
+        return redirect()->route('admin.auth.logView')->with('success_logout', 'Anda berhasil logout');
     }
 }

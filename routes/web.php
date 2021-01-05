@@ -30,10 +30,12 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('login', [AuthController::class, 'logView'])->name('auth.logView');
             Route::get('register', [AuthController::class, 'regView'])->name('auth.regView');
             Route::post('process-login', [AuthController::class, 'actionLogin'])->name('auth.action');
+
         });
 
         Route::group(['middleware' => 'auth'], function () {
            Route::get('/', [HomeController::class, 'index'])->name('home');
+           Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
         });
     });
 });

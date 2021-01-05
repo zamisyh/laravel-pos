@@ -18,7 +18,7 @@
 
                     @if (session()->get('success_login'))
                         <script>
-                            var url = "{{ route('admin.auth.regView') }}";
+                            var url = "{{ route('admin.home') }}";
                              setTimeout(function(){
                                 window.location = url;
                             },3000);
