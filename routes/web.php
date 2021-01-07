@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -23,7 +24,6 @@ Route::get('/', function () {
 
 
 
-
 Route::group(['prefix' => 'admin'], function () {
     Route::name('admin.')->group(function() {
         Route::group(['prefix' => 'auth'], function () {
@@ -36,7 +36,11 @@ Route::group(['prefix' => 'admin'], function () {
         Route::group(['middleware' => 'auth'], function () {
            Route::get('/', [HomeController::class, 'index'])->name('home');
            Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+           Route::resource('category', CategoryController::class);
         });
     });
+
+
 });
 
