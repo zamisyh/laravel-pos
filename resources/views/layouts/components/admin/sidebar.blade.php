@@ -21,6 +21,39 @@
           <span>Category</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
+          aria-controls="collapseTable">
+          <i class="fas fa-file-alt"></i>
+          <span>Data</span>
+        </a>
+        <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">All Data</h6>
+            <a class="collapse-item" href="{{ route('admin.users.index') }}">Admin</a>
+            <a class="collapse-item" href="datatables.html">Customers</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="">
+          <i class="fa fa-shopping-cart"></i>
+          <span>Product</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReport" aria-expanded="true"
+          aria-controls="collapseReport">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Reports</span>
+        </a>
+        <div id="collapseReport" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">All Report</h6>
+            <a class="collapse-item" href="datatables.html">Graph</a>
+          </div>
+        </div>
+      </li>
     <hr class="sidebar-divider">
     <div class="version" id="version-ruangadmin"></div>
   </ul>

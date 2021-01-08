@@ -18,7 +18,6 @@
 
    <div id="wrapper">
         @yield('body')
-        @include('sweetalert::alert')
         @yield('modal')
    </div>
 
@@ -26,7 +25,8 @@
     <script src={{ asset("assets/vendor/bootstrap/js/bootstrap.bundle.min.js") }}></script>
     <script src={{ asset("assets/vendor/jquery-easing/jquery.easing.min.js") }}></script>
     <script src={{ asset("assets/js/ruang-admin.min.js") }}></script>
-     <script src="{{ asset('assets/js/confirmAlert.js') }}"></script>
+    @include('sweetalert::alert')
+    <script src="{{ asset('assets/js/confirmAlert.js') }}"></script>
 
     @yield('js')
 

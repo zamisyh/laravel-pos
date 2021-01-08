@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\UsersController;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -38,6 +39,7 @@ Route::group(['prefix' => 'admin'], function () {
            Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
            Route::resource('category', CategoryController::class);
+           Route::resource('users', UsersController::class);
         });
     });
 
