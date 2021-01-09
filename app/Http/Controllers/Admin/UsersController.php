@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Users\CreateRequest;
+use App\Http\Requests\Admin\Users\UpdateRequest;
 use Illuminate\Http\Request;
+use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UsersController extends Controller
 {
@@ -14,7 +18,14 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return 'tes';
+
+        session('successMsgCreate') ? toast(session('successMsgCreate'), 'success') : toast(session('errorMsgCreate'), 'error');
+        session('successMsgDelete') ? toast(session('successMsgDelete'), 'success') : toast(session('errorMsgDelete'), 'error');
+        session('successMsgUpdate') ? toast(session('successMsgUpdate'), 'success') : toast(session('errorMsgUpdate'). 'error');
+
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
+
     }
 
     /**
@@ -24,7 +35,12 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        if(session('errorMsgCreate')){
+            toast(session('errorMsgCreate'), 'error');
+        }
+
+        return view('admin.users.create');
+
     }
 
     /**
@@ -33,9 +49,21 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $req)
     {
-        //
+        try {
+
+            User::create([
+                'name' => $req->name,
+                'email' => $req->email,
+                'password' => bcrypt($req->password)
+            ]);
+
+            return redirect()->route('admin.users.index')->with('successMsgCreate', 'Successfully created data!');
+
+        } catch (\Exception $e) {
+            return redirect()->route('admin.users.create')->with('errorMsgCreate', 'error : ' . $e->getMessage());
+        }
     }
 
     /**
@@ -57,7 +85,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = User::find($id);
+        return view('admin.users.edit', compact('data'));
     }
 
     /**
@@ -67,9 +96,23 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $req, $id)
     {
-        //
+        try {
+
+            $data = User::findOrFail($id);
+
+            $data->name = $req->name;
+            $data->email = $req->email;
+
+            $data->save();
+
+            return redirect()->route('admin.users.index')->with('successMsgUpdate', 'Succesfully update!');
+
+
+        } catch (\Exception $e) {
+            return redirect()->route('admin.users.index')->with('errorMsgUpdate', 'Error : ' . $e->getMessage() );
+        }
     }
 
     /**
@@ -80,6 +123,9 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = User::findOrFail($id);
+        $data->delete();
+
+        return redirect()->route('admin.users.index')->with('successMsgDelete', 'Succesfully delete');
     }
 }

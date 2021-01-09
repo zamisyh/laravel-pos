@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Home Admin Dashboard')
+@section('title', 'Category')
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/dataTables.bootstrap4.min.css') }}">
 @endsection
@@ -15,6 +15,7 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="./">Home</a></li>
             <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item active" aria-current="page">Category</li>
           </ol>
         </div>
 
