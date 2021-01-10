@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -40,6 +41,14 @@ Route::group(['prefix' => 'admin'], function () {
 
            Route::resource('category', CategoryController::class);
            Route::resource('users', UsersController::class);
+
+           //Settings
+           Route::group(['prefix' => 'setting'], function () {
+                Route::name('setting.')->group(function() {
+                    Route::get("password/{id}", [SettingsController::class, 'homeChangePassword'])->name('home.password');
+                    Route::patch("password/{id}", [SettingsController::class, 'postChangePassword'])->name('post.password');
+                });
+            });
         });
     });
 

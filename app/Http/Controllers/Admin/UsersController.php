@@ -21,7 +21,7 @@ class UsersController extends Controller
 
         session('successMsgCreate') ? toast(session('successMsgCreate'), 'success') : toast(session('errorMsgCreate'), 'error');
         session('successMsgDelete') ? toast(session('successMsgDelete'), 'success') : toast(session('errorMsgDelete'), 'error');
-        session('successMsgUpdate') ? toast(session('successMsgUpdate'), 'success') : toast(session('errorMsgUpdate'). 'error');
+        session('successMsgUpdate') ? toast(session('successMsgUpdate'), 'success') : toast(session('errorMsgUpdate'), 'error');
 
         $users = User::all();
         return view('admin.users.index', compact('users'));
