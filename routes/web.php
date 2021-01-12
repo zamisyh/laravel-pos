@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -26,6 +27,7 @@ Route::get('/', function () {
 
 
 
+
 Route::group(['prefix' => 'admin'], function () {
     Route::name('admin.')->group(function() {
         Route::group(['prefix' => 'auth'], function () {
@@ -41,6 +43,7 @@ Route::group(['prefix' => 'admin'], function () {
 
            Route::resource('category', CategoryController::class);
            Route::resource('users', UsersController::class);
+           Route::resource('product', ProductController::class);
 
            //Settings
            Route::group(['prefix' => 'setting'], function () {

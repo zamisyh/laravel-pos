@@ -36,7 +36,7 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('admin.product.index') }}">
           <i class="fa fa-shopping-cart"></i>
           <span>Product</span>
         </a>
