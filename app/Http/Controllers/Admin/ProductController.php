@@ -19,7 +19,8 @@ class ProductController extends Controller
     public function index()
     {
         session('success') ? toast(session('success'), 'success') : toast(session('error'), 'error');
-        return view('admin.product.index');
+        $data = Product::all();
+        return view('admin.product.index', compact('data'));
     }
 
     /**
@@ -53,7 +54,7 @@ class ProductController extends Controller
                 'name' => $req->name,
                 'price' => $req->price,
                 'stock' => $req->stock,
-                'category' => $req->category,
+                'category_id' => $req->category,
                 'description' => $req->description,
                 'image' => $nameFile
             ]);

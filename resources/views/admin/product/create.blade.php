@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/dataTables.bootstrap4.min.css') }}">
 @endsection
 
+
 @section('body')
     @include('layouts.components.admin.sidebar')
     @include('layouts.components.admin.topbar')

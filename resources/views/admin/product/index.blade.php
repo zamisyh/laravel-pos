@@ -39,7 +39,14 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            @foreach ($data as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td><img height="50px" src="{{ asset('assets/images/product/' . $item->image) }}" alt=""></td>
+                                    <td>{{ $item->categories->name }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
