@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Http\Requests\Admin\Product\CreateRequest;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
+
 
 class ProductController extends Controller
 {
@@ -19,7 +21,7 @@ class ProductController extends Controller
     public function index()
     {
         session('success') ? toast(session('success'), 'success') : toast(session('error'), 'error');
-        $data = Product::all();
+        $data = Product::with('category')->orderBy('created_at', 'DESC')->get();
         return view('admin.product.index', compact('data'));
     }
 
@@ -45,7 +47,7 @@ class ProductController extends Controller
         try {
 
             $image = $req->file('image');
-            $nameFile = time().'-'.$image->getClientOriginalName();
+            $nameFile = Str::slug($req->name). '-' .time().'.'.$image->getClientOriginalExtension();
             $path = 'assets/images/product';
 
             $image->move($path, $nameFile);
@@ -85,7 +87,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Product::findOrFail($id);
+        $category = Category::orderBy('name', 'ASC')->get();
+        return view('admin.product.edit', compact('data', 'category'));
     }
 
     /**

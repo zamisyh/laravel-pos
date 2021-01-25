@@ -33,8 +33,10 @@
                             <tr>
                                 <th>No</th>
                                 <th>Name</th>
-                                <th>Image</th>
+                                <th>Stock</th>
+                                <th>Price</th>
                                 <th>Category</th>
+                                <th>Last Update</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -43,8 +45,18 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td><img height="50px" src="{{ asset('assets/images/product/' . $item->image) }}" alt=""></td>
-                                    <td>{{ $item->categories->name }}</td>
+                                    <td>{{ number_format($item->stock) }}</td>
+                                    <td>Rp. {{ number_format($item->price) }}</td>
+                                    <td>{{ $item->category->name }}</td>
+                                    <td>{{ $item->updated_at }}</td>
+                                    <td class="d-flex">
+                                        <a href='{{ url("admin/product/{$item->id}/edit") }}' class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                                        <form action="" method="post" class="ml-1">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger btn-delete btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
