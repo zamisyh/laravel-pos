@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Http\Requests\Admin\Product\CreateRequest;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
+use App\Http\Requests\Admin\Product\UpdateRequest;
 
 
 class ProductController extends Controller
@@ -21,6 +23,7 @@ class ProductController extends Controller
     public function index()
     {
         session('success') ? toast(session('success'), 'success') : toast(session('error'), 'error');
+        session('successUpdate') ? toast(session('successUpdate'), 'success') : toast(session('error'), 'error');
         $data = Product::with('category')->orderBy('created_at', 'DESC')->get();
         return view('admin.product.index', compact('data'));
     }
@@ -99,9 +102,38 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+        try {
+
+            $product = Product::findOrFail($id);
+            $photo = $product->image;
+
+            if ($request->file('image')) {
+                !empty($photo) ? File::delete(public_path('assets/images/product/' . $photo)) : null;
+
+                $image = $request->file('image');
+                $photo =  Str::slug($request->name). '-' .time().'.'.$image->getClientOriginalExtension();
+
+                $path = 'assets/images/product';
+
+                $image->move($path, $photo);
+            }
+
+            $product->update([
+                'name' => $request->name,
+                'price' => $request->price,
+                'stock' => $request->stock,
+                'category_id' => $request->category,
+                'description' => $request->description,
+                'image' => $photo
+            ]);
+
+            return redirect()->route('admin.product.index')->with('successUpdate', 'Succesfully update product');
+
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -112,6 +144,14 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Product::findOrFail($id);
+
+        if(!empty($data->image)){
+            File::delete(public_path('assets/images/product/' . $data->image));
+        }
+
+        $data->delete();
+
+        return redirect()->route('admin.product.index')->with('successDelete', 'Succesfully delete product ' .  $data->name);
     }
 }

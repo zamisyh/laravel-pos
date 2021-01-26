@@ -29,8 +29,9 @@
                         <h6 class="m-0 font-weight-bold text-primary">Edit Product</h6>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.product.store') }}" method="post" enctype="multipart/form-data">
+                        <form action='{{ url("admin/product/{$data->id}") }}' method="post" enctype="multipart/form-data">
                             @csrf
+                            @method("PATCH")
                             <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="text" name="name" id="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
@@ -62,11 +63,16 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea name="description" id="description" rows="3" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}">{{ old('description') }}</textarea>
+                                <textarea name="description" id="description" rows="3" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}">{{ $data->description }}</textarea>
                                 <p class="text-danger">{{ $errors->first('description') }}</p>
                             </div>
                             <div class="form-group">
                                 <label>Image</label>
+
+                                <p>
+                                    <img src="{{ asset('assets/images/product/' . $data->image) }}" height="100px" alt="">
+                                </p>
+
                                 <div class="custom-file">
                                   <input type="file" name="image" class="form-control{{ $errors->has('image') ? 'is-invalid' : '' }}" id="customFile">
 
