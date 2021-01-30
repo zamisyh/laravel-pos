@@ -42,6 +42,16 @@
                                 <p class="text-danger">{{ $errors->first('email') }}</p>
                             </div>
                             <div class="form-group">
+                                <label for="email">Role</label>
+                                <select name="role" id="role" class="form-control {{ $errors->has('role') ? 'is-invalid' : '' }}">
+                                    <option>Choose</option>
+                                    @foreach ($role as $item)
+                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                                <p class="text-danger">{{ $errors->first('role') }}</p>
+                            </div>
+                            <div class="form-group">
                                 <label for="password">Password</label>
                                 <input type="password" name="password" id="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
                                 placeholder="Input your password" value="{{ old('password') }}">

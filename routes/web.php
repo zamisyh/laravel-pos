@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\RoleController;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -45,6 +46,14 @@ Route::group(['prefix' => 'admin'], function () {
            Route::resource('users', UsersController::class);
            Route::resource('product', ProductController::class);
 
+           //Role Manajemen
+           Route::resource('/role', RoleController::class)->except([
+               'create', 'show', 'edit', 'update',
+           ]);
+
+           Route::get('role/role-permission', [UsersController::class, 'rolePermission'])->name('role_permission');
+           Route::post('role/add_permission', [UsersController::class, 'addPermission'])->name('add_permission');
+           Route::patch('role/permission/{role}', [UsersController::class, 'setRolePermission'])->name('set_role_permission');
            //Settings
            Route::group(['prefix' => 'setting'], function () {
                 Route::name('setting.')->group(function() {

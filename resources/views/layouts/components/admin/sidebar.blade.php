@@ -36,6 +36,20 @@
         </div>
       </li>
       <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#userManajements" aria-expanded="true"
+          aria-controls="userManajements">
+          <i class="fas fa-users"></i>
+          <span>Users Manajement</span>
+        </a>
+        <div id="userManajements" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">All Data</h6>
+            <a class="collapse-item" href="{{ route('admin.role.index') }}">Role</a>
+            <a class="collapse-item" href="{{ route('admin.role_permission') }}">Permission</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.product.index') }}">
           <i class="fa fa-shopping-cart"></i>
           <span>Product</span>

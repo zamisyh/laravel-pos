@@ -15,7 +15,8 @@
         "intervention/image": "^2.5",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
-        "realrashid/sweet-alert": "^3.2"
+        "realrashid/sweet-alert": "^3.2",
+        "spatie/laravel-permission": "^4.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

@@ -33,6 +33,8 @@
                                 <th>No</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
                                 <th>Create At</th>
                                 <th>Actions</th>
                             </tr>
@@ -43,6 +45,18 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
+                                    <td>
+                                        @foreach ($item->getRoleNames() as $role)
+                                        <span class="badge badge-primary">{{ $role }}</span>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @if ($item->status === true)
+                                            <span class="badge badge-success">Aktif</span>
+                                        @else
+                                            <span class="badge badge-danger">Suspend</span>
+                                        @endif
+                                    </td>
                                     <td>{{ Carbon\Carbon::parse($item->created_at)->format('d M Y H:i:s') }}</td>
                                     @if ($item->id === Auth::user()->id)
                                         <td class="d-flex">
@@ -54,7 +68,7 @@
                                             </form>
                                         </td>
                                     @else
-                                        <td class="text-danger">Access Blocked</td>
+                                        <td> <span class="badge badge-danger">Blocked</span></td>
                                     @endif
                                 </tr>
                             @endforeach
