@@ -188,4 +188,24 @@ class UsersController extends Controller
 
     }
 
+
+    public function roles(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $roles = Role::all()->pluck('name');
+        return view('admin.users.role.roles', compact('user', 'roles'));
+    }
+
+    public function setRole(Request $req, $id){
+
+        $req->validate([
+            'role' => 'required'
+        ]);
+
+        $user = User::findOrFail($id);
+
+        $user->syncRoles($req->role);
+        return redirect()->route('admin.users.index')->with('success', 'Role saved');
+    }
+
 }

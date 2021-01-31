@@ -51,9 +51,14 @@ Route::group(['prefix' => 'admin'], function () {
                'create', 'show', 'edit', 'update',
            ]);
 
-           Route::get('role/role-permission', [UsersController::class, 'rolePermission'])->name('role_permission');
-           Route::post('role/add_permission', [UsersController::class, 'addPermission'])->name('add_permission');
-           Route::patch('role/permission/{role}', [UsersController::class, 'setRolePermission'])->name('set_role_permission');
+           Route::group(['prefix' => 'role'], function () {
+                Route::get('role-permission', [UsersController::class, 'rolePermission'])->name('role_permission');
+                Route::post('add_permission', [UsersController::class, 'addPermission'])->name('add_permission');
+                Route::patch('permission/{role}', [UsersController::class, 'setRolePermission'])->name('set_role_permission');
+                Route::get('set/{id}', [UsersController::class, 'roles'])->name('role_set');
+                Route::patch('set/{id}', [UsersController::class, 'setRole'])->name('setRole');
+            });
+
            //Settings
            Route::group(['prefix' => 'setting'], function () {
                 Route::name('setting.')->group(function() {

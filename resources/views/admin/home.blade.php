@@ -14,8 +14,10 @@
             <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
           </ol>
         </div>
+
+
     </div>
 
-    </div
+</div>
     @include('layouts.components.admin.footer')
 @endsection

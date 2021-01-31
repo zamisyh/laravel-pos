@@ -20,6 +20,16 @@
         </div>
 
         <div class="col-lg-12">
+
+            @if (session()->get('success'))
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ session()->get('success') }}
+                </div>
+            @endif
+
             <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Data Admin</h6>
@@ -47,7 +57,15 @@
                                     <td>{{ $item->email }}</td>
                                     <td>
                                         @foreach ($item->getRoleNames() as $role)
-                                        <span class="badge badge-primary">{{ $role }}</span>
+                                           @if ($role === 'admin')
+                                                <span class="badge badge-success">{{ $role }}</span>
+                                           @endif
+                                           @if ($role === 'cashier')
+                                                <span class="badge badge-primary">{{ $role }}</span>
+                                           @endif
+                                           @if ($role === 'operators')
+                                                <span class="badge badge-info">{{ $role }}</span>
+                                           @endif
                                         @endforeach
                                     </td>
                                     <td>
@@ -58,18 +76,15 @@
                                         @endif
                                     </td>
                                     <td>{{ Carbon\Carbon::parse($item->created_at)->format('d M Y H:i:s') }}</td>
-                                    @if ($item->id === Auth::user()->id)
-                                        <td class="d-flex">
-                                            <a href='{{ url("admin/users/{$item->id}/edit") }}' class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
-                                            <form action='{{ url("admin/users/{$item->id}") }}' class="ml-1" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger btn-sm btn-delete" type="button"><i class="fas fa-trash-alt"></i></button>
-                                            </form>
-                                        </td>
-                                    @else
-                                        <td> <span class="badge badge-danger">Blocked</span></td>
-                                    @endif
+                                    <td class="d-flex">
+                                        <a href="{{ route('admin.role_set', $item->id) }}" class="btn btn-info btn-sm"><i class="fas fa-user-shield"></i></a>
+                                        <a href='{{ url("admin/users/{$item->id}/edit") }}' class="btn btn-primary btn-sm ml-1"><i class="fas fa-edit"></i></a>
+                                        <form action='{{ url("admin/users/{$item->id}") }}' class="ml-1" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger btn-sm btn-delete" type="button"><i class="fas fa-trash-alt"></i></button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
