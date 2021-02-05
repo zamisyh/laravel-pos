@@ -1,7 +1,7 @@
 <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
       <div class="sidebar-brand-icon">
-        <img src="img/logo/logo2.png">
+        <img src="">
       </div>
       <div class="sidebar-brand-text mx-3">RuangAdmin</div>
     </a>
@@ -15,12 +15,14 @@
     <div class="sidebar-heading">
       Features
     </div>
+    @if (auth()->user()->can('show products') || auth()->user()->can('delete products') || auth()->user()->can('create products')))
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.category.index') }}">
           <i class="fa fa-comment"></i>
           <span>Category</span>
         </a>
-      </li>
+    </li>
+    @endif
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
           aria-controls="collapseTable">
@@ -30,12 +32,16 @@
         <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">All Data</h6>
-            <a class="collapse-item" href="{{ route('admin.users.index') }}">Admin</a>
+            @role('admin')
+                <a class="collapse-item" href="{{ route('admin.users.index') }}">Admin</a>
+            @endrole
             <a class="collapse-item" href="datatables.html">Customers</a>
           </div>
         </div>
       </li>
-      <li class="nav-item">
+     @role('admin')
+
+     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#userManajements" aria-expanded="true"
           aria-controls="userManajements">
           <i class="fas fa-users"></i>
@@ -49,6 +55,8 @@
           </div>
         </div>
       </li>
+
+     @endrole
       <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.product.index') }}">
           <i class="fa fa-shopping-cart"></i>

@@ -42,22 +42,26 @@ Route::group(['prefix' => 'admin'], function () {
            Route::get('/', [HomeController::class, 'index'])->name('home');
            Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-           Route::resource('category', CategoryController::class);
-           Route::resource('users', UsersController::class);
-           Route::resource('product', ProductController::class);
+          Route::group(['middleware' => ['role:cashier']], function () {
+                Route::resource('category', CategoryController::class);
+                Route::resource('product', ProductController::class);
+          });
 
            //Role Manajemen
-           Route::resource('/role', RoleController::class)->except([
-               'create', 'show', 'edit', 'update',
-           ]);
+           Route::group(['middleware' => ['role:admin']], function () {
+                Route::resource('users', UsersController::class);
+                Route::resource('/role', RoleController::class)->except([
+                    'create', 'show', 'edit', 'update',
+                ]);
 
-           Route::group(['prefix' => 'role'], function () {
-                Route::get('role-permission', [UsersController::class, 'rolePermission'])->name('role_permission');
-                Route::post('add_permission', [UsersController::class, 'addPermission'])->name('add_permission');
-                Route::patch('permission/{role}', [UsersController::class, 'setRolePermission'])->name('set_role_permission');
-                Route::get('set/{id}', [UsersController::class, 'roles'])->name('role_set');
-                Route::patch('set/{id}', [UsersController::class, 'setRole'])->name('setRole');
-            });
+                Route::group(['prefix' => 'role'], function () {
+                    Route::get('role-permission', [UsersController::class, 'rolePermission'])->name('role_permission');
+                    Route::post('add_permission', [UsersController::class, 'addPermission'])->name('add_permission');
+                    Route::patch('permission/{role}', [UsersController::class, 'setRolePermission'])->name('set_role_permission');
+                    Route::get('set/{id}', [UsersController::class, 'roles'])->name('role_set');
+                    Route::patch('set/{id}', [UsersController::class, 'setRole'])->name('setRole');
+                });
+           });
 
            //Settings
            Route::group(['prefix' => 'setting'], function () {
