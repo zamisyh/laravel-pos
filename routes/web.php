@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Client\HomeController as HomeClient;
 use App\Http\Controllers\RoleController;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -22,13 +23,16 @@ use RealRashid\SweetAlert\Facades\Alert;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//client route
+
+Route::name('client.')->group(function() {
+    Route::get('/', [HomeClient::class, 'index'])->name('home');
 });
 
+//end client
 
 
-
+//admin route
 Route::group(['prefix' => 'admin'], function () {
     Route::name('admin.')->group(function() {
         Route::group(['prefix' => 'auth'], function () {
