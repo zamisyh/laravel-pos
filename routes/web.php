@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Client\HomeController as HomeClient;
+use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\RoleController;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -27,7 +28,12 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 Route::name('client.')->group(function() {
     Route::get('/', [HomeClient::class, 'index'])->name('home');
+
+    Route::group(['prefix' => 'order/product'], function () {
+        Route::get('{id}', [OrderController::class, 'orderDetails'])->name('order');
+    });
 });
+
 
 //end client
 

@@ -7,7 +7,7 @@
     @include('client.layouts.components.navbar')
 
     <div class="container mt-5">
-        <div class="d-flex justify-content-between flex-wrap">
+        <div class="d-flex justify-content-between flex-wrap m-1">
             @php $no = 1; @endphp
             @foreach ($product as $prod)
                 <div class="card" style="width: 22rem;">
@@ -17,11 +17,14 @@
                         <img src="{{ asset('assets/images/product/' . $prod->image) }}" height="100px" width="100%" alt="{{ $prod->category->name }}">
                         <p class="card-text">{!! substr($prod->description, 0, 100) !!}</p>
 
+                        <div class="d-flex justify-content-between">
+                            <a href='{{ route('client.order', $prod->id) }}' class="btn btn-primary btn-sm"><i class="fas fa-cart-plus"></i> Buy</a>
+                            <span class="btn btn-info btn-sm">
+                                {{ $prod->stock === 0 ? 'Habis' : 'Stock : ' . $prod->stock }}
+                            </span>
+                        </div>
                     </div>
                 </div>
-                @if ($no++ %3 == 0)
-                    <div style="margin-top: 2%"></div>
-                @endif
             @endforeach
         </div>
     </div>
