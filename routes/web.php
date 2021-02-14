@@ -29,8 +29,12 @@ use RealRashid\SweetAlert\Facades\Alert;
 Route::name('client.')->group(function() {
     Route::get('/', [HomeClient::class, 'index'])->name('home');
 
-    Route::group(['prefix' => 'order/product'], function () {
-        Route::get('{id}', [OrderController::class, 'orderDetails'])->name('order');
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('product/{id}', [OrderController::class, 'orderDetails'])->name('order');
+
+        Route::group(['middleware' => ['role:cashier']], function () {
+           Route::get('/checkout/{id}', [OrderController::class, 'checkout'])->name('checkout');
+        });
     });
 });
 

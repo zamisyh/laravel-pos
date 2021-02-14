@@ -14,6 +14,13 @@ class OrderController extends Controller
 {
     public function orderDetails($id)
     {
-        return 'Order id' . $id;
+        $product = Product::findOrFail($id);
+        $product->with('category');
+        return view('client.order', compact('product'));
+    }
+
+    public function checkout($id)
+    {
+        return view('client.checkout');
     }
 }

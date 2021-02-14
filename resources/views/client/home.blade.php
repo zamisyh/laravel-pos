@@ -19,8 +19,8 @@
 
                         <div class="d-flex justify-content-between">
                             <a href='{{ route('client.order', $prod->id) }}' class="btn btn-primary btn-sm"><i class="fas fa-cart-plus"></i> Buy</a>
-                            <span class="btn btn-info btn-sm">
-                                {{ $prod->stock === 0 ? 'Habis' : 'Stock : ' . $prod->stock }}
+                            <span class="{{ $prod->stock == 0 ? 'btn btn-danger btn-sm ': 'btn btn-info btn-sm ' }}">
+                                {{ $prod->stock == 0 ? 'Habis' : 'Stock : ' . $prod->stock }}
                             </span>
                         </div>
                     </div>
