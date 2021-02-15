@@ -38,15 +38,12 @@
                     </div>
                     <div class="form-group">
 
-
-
-
                         @if ($product->stock == 0)
                             <button class="btn btn-danger form-control">Sold Out</button>
                             @elseif(!Auth::user())
                                 <button class="btn btn-primary form-control" type="button" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-cart-plus"></i> Order</button>
                             @else
-                                <a class="btn btn-primary form-control" href="{{ route('client.checkout', $product->id) }}"><i class="fas fa-cart-plus"></i> Order</a>
+                                <a class="btn btn-primary form-control" href='{{ url("order/{$product->id}/checkout") }}'><i class="fas fa-cart-plus"></i> Order</a>
                         @endif
                     </div>
                 </form>

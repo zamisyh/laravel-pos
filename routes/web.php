@@ -27,13 +27,15 @@ use RealRashid\SweetAlert\Facades\Alert;
 //client route
 
 Route::name('client.')->group(function() {
-    Route::get('/', [HomeClient::class, 'index'])->name('home');
+    Route::get('/', [HomeClient::class, 'index'])->name('home')->middleware('auth');
 
     Route::group(['prefix' => 'order'], function () {
-        Route::get('product/{id}', [OrderController::class, 'orderDetails'])->name('order');
+        Route::get('product/{id}', [OrderController::class, 'orderDetails'])->name('order')->middleware('auth');
 
-        Route::group(['middleware' => ['role:cashier']], function () {
-           Route::get('/checkout/{id}', [OrderController::class, 'checkout'])->name('checkout');
+        Route::group(['middleware' => ['role:cashier', 'auth']], function () {
+           Route::get('/{id}/checkout', [OrderController::class, 'checkout'])->name('checkout');
+           Route::post('customer/add', [OrderController::class, 'addCustomer'])->name('add.customer');
+           Route::post('checkout', [OrderController::class, 'storeOrder'])->name('store.order');
         });
     });
 });
@@ -53,13 +55,13 @@ Route::group(['prefix' => 'admin'], function () {
         });
 
         Route::group(['middleware' => 'auth'], function () {
-           Route::get('/', [HomeController::class, 'index'])->name('home');
-           Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
+            Route::get('/', [HomeController::class, 'index'])->name('home');
+            Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-          Route::group(['middleware' => ['role:cashier']], function () {
+            Route::group(['middleware' => ['role:cashier']], function () {
                 Route::resource('category', CategoryController::class);
                 Route::resource('product', ProductController::class);
-          });
+            });
 
            //Role Manajemen
            Route::group(['middleware' => ['role:admin']], function () {
