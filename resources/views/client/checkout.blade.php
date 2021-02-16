@@ -94,7 +94,11 @@
                     </table>
                 </div>
                 <div class="form-group">
-                    @if (!empty($customer))
+
+
+                    @if (!empty($customer) AND $product->stock == 0)
+                        <button class="btn btn-danger form-control" type="button">Sold out</button>
+                        @else
                         <button class="btn btn-success form-control">Checkout</button>
                     @endif
                 </div>

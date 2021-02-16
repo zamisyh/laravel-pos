@@ -12,6 +12,8 @@ use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\RoleController;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
+use App\Models\Order;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 Route::name('client.')->group(function() {
     Route::get('/', [HomeClient::class, 'index'])->name('home')->middleware('auth');
+
 
     Route::group(['prefix' => 'order'], function () {
         Route::get('product/{id}', [OrderController::class, 'orderDetails'])->name('order')->middleware('auth');

@@ -14,6 +14,8 @@ use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
+
 
 class OrderController extends Controller
 {
@@ -40,6 +42,7 @@ class OrderController extends Controller
         $email ? $customer = Customer::where('email', $email)->first() : null;
 
         session('successAddCustomer') ? toast(session('successAddCustomer'), 'success') : toast(session('error'), 'error');
+        session('successCheckout') ? toast(session('successCheckout'), 'success') : toast(session('error'), 'error');
         $product = Product::findOrFail($id);
         $product->with('category');
         return view('client.checkout', compact('product', 'customer'));
@@ -85,20 +88,15 @@ class OrderController extends Controller
             'stock' => $product->stock - $req->qty
        ]);
 
-       return 'Success';
+       return redirect()->back()->with('successCheckout', 'Order Succesfully');
 
 
     }
 
     public function generateInvoice()
     {
-        $order = Order::orderBy('created_at', 'DESC');
-        if($order->count() > 0){
-            $order = $order->first();
-            $explode = explode('-', $order->invoice);
-            return 'INV-' + $explode[1] + 1;
-        }
-
-
+        $no = Order::max('id');
+        $id = sprintf("%04s", abs($no + 1));
+        return "INV"."-".$id;
     }
 }
