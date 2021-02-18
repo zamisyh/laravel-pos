@@ -31,7 +31,7 @@ $(document).ready(function() {
         var data = $(this).serialize();
         Swal.fire({
             title: 'Konfirmasi Submit',
-            text: "Apakah anda yakin ingin submit?",
+            text: "Apakah anda yakin ingin membeli product ini?",
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -46,11 +46,7 @@ $(document).ready(function() {
                 result.dismiss === Swal.DismissReason.cancel
 
               ) {
-                Swal.fire(
-                  'Cancelled',
-                  'Submit di cancel, silahkan cek dan masukkan data anda dengan benar',
-                  'info'
-                )
+
               }
         })
     })

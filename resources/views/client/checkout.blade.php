@@ -43,7 +43,7 @@
                 </div>
             </form>
             @else
-            <form action="{{ route('client.store.order') }}" method="post">
+            <form action="{{ route('client.store.order') }}" method="post" id="formSubmit">
                 @csrf
                 <div class="form-group">
                     <label for="name">Name</label>
@@ -98,8 +98,8 @@
 
                     @if (!empty($customer) AND $product->stock == 0)
                         <button class="btn btn-danger form-control" type="button">Sold out</button>
-                        @else
-                        <button class="btn btn-success form-control">Checkout</button>
+                        @elseif(!empty($customer))
+                        <button class="btn btn-success form-control btnSubmit" type="button">Checkout</button>
                     @endif
                 </div>
             </form>
@@ -148,4 +148,9 @@
       </div>
     </div>
   </div>
+@endsection
+
+@section('js')
+    <script src="{{ asset("vendor/sweetalert/sweetalert.all.js") }}"></script>
+    <script src="{{ asset('assets/js/confirmAlert.js') }}"></script>
 @endsection

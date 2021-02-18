@@ -10,10 +10,13 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Client\HomeController as HomeClient;
 use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Client\CustomerController;
+use App\Http\Controllers\Admin\CustomerController as CustomerAdmin;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Models\Order;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +42,10 @@ Route::name('client.')->group(function() {
            Route::get('/{id}/checkout', [OrderController::class, 'checkout'])->name('checkout');
            Route::post('customer/add', [OrderController::class, 'addCustomer'])->name('add.customer');
            Route::post('checkout', [OrderController::class, 'storeOrder'])->name('store.order');
+
+           Route::group(['prefix' => 'customer'], function () {
+               Route::get('/', [CustomerController::class, 'index'])->name('customer');
+           });
         });
     });
 });
@@ -61,7 +68,9 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/', [HomeController::class, 'index'])->name('home');
             Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-            Route::group(['middleware' => ['role:cashier']], function () {
+            Route::resource('customer', CustomerAdmin::class);
+
+            Route::group(['middleware' => ['role:cashier|admin']], function () {
                 Route::resource('category', CategoryController::class);
                 Route::resource('product', ProductController::class);
             });

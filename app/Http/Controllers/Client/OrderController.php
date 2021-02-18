@@ -81,6 +81,7 @@ class OrderController extends Controller
             'product_id' => $req->idProduct,
             'qty' => $req->qty,
             'price' => $req->price,
+            'status' => 'pending'
        ]);
 
        $product = Product::find($req->idProduct);

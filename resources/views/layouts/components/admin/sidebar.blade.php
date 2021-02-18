@@ -35,7 +35,7 @@
             @role('admin')
                 <a class="collapse-item" href="{{ route('admin.users.index') }}">Admin</a>
             @endrole
-            <a class="collapse-item" href="datatables.html">Customers</a>
+            <a class="collapse-item" href="{{ route('admin.customer.index') }}">Customers</a>
           </div>
         </div>
       </li>

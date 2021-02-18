@@ -12,9 +12,8 @@
           <a class="nav-link" href="{{ route('admin.home') }}">Dashboard</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Customer</a>
-          </li>
-
+            <a class="nav-link" href="{{ route('client.customer') }}">Customer</a>
+        </li>
       </ul>
     </div>
   </nav>
