@@ -70,12 +70,14 @@
                                 <td>{{ $item->created_at->format('d M Y - H:i:s') }}</td>
                                     <td>
                                         @if ($detail->status == 'pending')
-                                            <span class="badge badge-danger">{{ $detail->status }}</span>
-                                            @elseif($detail->status == 'packed')
-                                                <span class="badge badge-info">{{ $detail->status }}</span>
-                                            @else
-                                                <span class="badge badge-success">{{ $detail->status }}</span>
-                                        @endif
+                                                   <span class="badge badge-danger">{{ $detail->status }}</span>
+                                                @elseif($detail->status == 'packed')
+                                                   <span class="badge badge-info">{{ $detail->status }}</span>
+                                                @elseif($detail->status == 'delivery')
+                                                   <span class="badge badge-primary">{{ $detail->status }}</span>
+                                                @else
+                                                   <span class="badge badge-success">{{ $detail->status }}</span>
+                                            @endif
                                     </td>
 
                                 @endforeach

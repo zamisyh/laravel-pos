@@ -12,6 +12,7 @@ use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Client\CustomerController;
 use App\Http\Controllers\Admin\CustomerController as CustomerAdmin;
+use App\Http\Controllers\Admin\OrderController AS OrderAdmin;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -73,6 +74,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::group(['middleware' => ['role:cashier|admin']], function () {
                 Route::resource('category', CategoryController::class);
                 Route::resource('product', ProductController::class);
+                Route::resource('order', OrderAdmin::class);
             });
 
            //Role Manajemen

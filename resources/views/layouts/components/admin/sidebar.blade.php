@@ -3,11 +3,11 @@
       <div class="sidebar-brand-icon">
         <img src="">
       </div>
-      <div class="sidebar-brand-text mx-3">RuangAdmin</div>
+      <div class="sidebar-brand-text mx-3">LARAVEL POS</div>
     </a>
     <hr class="sidebar-divider my-0">
     <li class="nav-item active">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" href="{{ route('admin.home') }}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
     </li>
@@ -72,7 +72,8 @@
         <div id="collapseReport" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">All Report</h6>
-            <a class="collapse-item" href="datatables.html">Graph</a>
+            <a class="collapse-item" href="{{ route('admin.order.index') }}">Order</a>
+            <a class="collapse-item" href="">Graph</a>
           </div>
         </div>
       </li>
