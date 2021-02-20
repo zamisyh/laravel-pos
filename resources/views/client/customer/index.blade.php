@@ -37,6 +37,15 @@
 
             @if (!empty($order))
             <div class="card card-body mb-4 mt-3">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Data Transaction</h6>
+                    <div class="d-flex">
+                        <a href="{{ route('client.import.pdf', $idCus) }}" class="btn btn-primary"><i class="fas fa-file-pdf"></i> Import Pdf </a>
+                        <a href="{{ route('client.import.excel', $idCus) }}" class="btn btn-success ml-2"><i class="fas fa-file-excel"></i> Import Excel</a>
+                    </div>
+
+                </div>
+
                 <div class="table-responsive p-3">
                     <table class="table align-items-center table-flush table-hover" id="dataCustomer">
                         <thead class="thead-light">

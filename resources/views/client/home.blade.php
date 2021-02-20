@@ -27,6 +27,10 @@
                 </div>
             @endforeach
         </div>
+
+        <div class="mb-3 d-flex justify-content-center" style="margin-top: 10%">
+            {{ $product->links() }}
+        </div>
     </div>
 @endsection
 

@@ -37,7 +37,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach ($order as $item)
+                        @forelse ($order as $item)
                             <tr>
                                 <td><a href="#">{{ $item->invoice }}</a></td>
                                 <td>{{ $item->customer->name }}</td>
@@ -56,14 +56,60 @@
                                     @endif
                                 </td>
                                 @endforeach
+
+                                @empty
+                                <td class="text-center" colspan="5">There is no order today</td>
                             </tr>
-                        @endforeach
+                        @endforelse
                       </tbody>
                     </table>
                   </div>
                   <div class="card-footer"></div>
                 </div>
               </div>
+
+              <div class="col-xl-4 col-lg-3 mb-4">
+                <div class="card">
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Product Sold</h6>
+                        <a class="m-0 float-right btn btn-danger btn-sm" href="{{ route('admin.order.index') }}">View More <i
+                            class="fas fa-chevron-right"></i></a>
+                  </div>
+
+                  <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                      <thead class="thead-light">
+                        <tr>
+                          <th>Product</th>
+                          <th>Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                           @forelse ($order_sold as $item)
+                                <tr>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->stock }}</td>
+
+                           @empty
+                                <td class="text-center" colspan="2">Many products are available </td>
+                                </tr>
+
+
+
+                           @endforelse
+
+                      </tbody>
+                    </table>
+
+                    <div class="p-3 mt-">
+                        {{ $order_sold->links() }}
+                   </div>
+                  </div>
+
+                </div>
+              </div>
+
+
         </div>
 
 

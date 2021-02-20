@@ -46,7 +46,9 @@ Route::name('client.')->group(function() {
 
            Route::group(['prefix' => 'customer'], function () {
                Route::get('/', [CustomerController::class, 'index'])->name('customer');
-           });
+               Route::get('import/pdf/{id}', [CustomerController::class, 'invoicePdf'])->name('import.pdf');
+               Route::get('import/excel/{id}', [CustomerController::class, 'invoiceExcel'])->name('import.excel');
+            });
         });
     });
 });

@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\Order_detail;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Pagination\Paginator;
 
 
 class HomeController extends Controller
@@ -23,8 +24,10 @@ class HomeController extends Controller
         $data['count']['order'] = Order::count();
         $data['count']['orderToday'] = Order::whereDate('created_at', Carbon::today())->count();
 
-        $order = Order::select('*')->whereDate('created_at', Carbon::today())->with('customer', 'order_detail', 'order_detail.product')->get();
+        Paginator::useBootstrap();
 
-        return view('admin.home', $data, compact('order'));
+        $order = Order::select('*')->whereDate('created_at', Carbon::today())->with('customer', 'order_detail', 'order_detail.product')->get();
+        $order_sold = Product::where('stock', 0)->paginate(5);
+        return view('admin.home', $data, compact('order', 'order_sold'));
     }
 }
